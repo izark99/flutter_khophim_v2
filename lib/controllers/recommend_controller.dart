@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:web_scraper/web_scraper.dart';
 
+import 'home_controller.dart';
+
 class RecommendController extends GetxController {
   final webScraper = WebScraper('https://dongphym.net');
   var nameList = <String>[].obs;
@@ -41,5 +43,6 @@ class RecommendController extends GetxController {
   void onReady() async {
     super.onReady();
     await loadRecommendList();
+    HomeController().showPopUpDonate();
   }
 }

@@ -25,15 +25,17 @@ class CustomMovieGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        brightness: Theme.of(context).primaryColorBrightness,
-        elevation: 0.0,
-        title: Text(
-          name,
-          style: Theme.of(context).textTheme.headline5,
-          textAlign: TextAlign.start,
-        ),
-      ),
+      appBar: name.isEmpty
+          ? null
+          : AppBar(
+              brightness: Theme.of(context).primaryColorBrightness,
+              elevation: 0.0,
+              title: Text(
+                name,
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.start,
+              ),
+            ),
       body: Padding(
         padding: PAD_SYM_H05,
         child: GridView.builder(
