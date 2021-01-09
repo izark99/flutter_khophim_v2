@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "718433103272",
+    "project_id": "izark-khophim",
+    "storage_bucket": "izark-khophim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718433103272:android:22d7fdbf3e6fcb00f1c19d",
+        "android_client_info": {
+          "package_name": "com.izark.khophim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718433103272-ojnopec1ojkjqpbqb7og42ceg43l009k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.izark.khophim",
+            "certificate_hash": "0a5d2d3db56fe5f095e3ab507129e0355489f192"
+          }
+        },
+        {
+          "client_id": "718433103272-acatn0crrdmrffslfucnm591u7lquhvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0CzQ7Wjiwou_QMcKG7NGCi8k_4zbIC8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718433103272-acatn0crrdmrffslfucnm591u7lquhvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
