@@ -13,10 +13,11 @@ class SearchTab extends StatelessWidget {
         Obx(
           () => _buildSearchList(context: context),
         ),
-        SIZED_BOX_H10,
+        SIZED_BOX_H05,
         Obx(
           () => _buildTextFormField(context: context),
         ),
+        SIZED_BOX_H05,
       ],
     );
   }
@@ -66,24 +67,47 @@ Widget _buildSearchList({@required BuildContext context}) {
 
 Widget _buildTextFormField({@required BuildContext context}) {
   final SearchController controller = Get.find<SearchController>();
-  return Visibility(
-    visible: controller.showTextFormField.value,
-    child: Padding(
-      padding: PAD_SYM_H10,
-      child: TextFormField(
-        controller: controller.searchText,
-        style: Theme.of(context).textTheme.bodyText1,
-        onChanged: (v) => controller.loadSearchList(),
-        maxLength: 50,
-        decoration: InputDecoration(
-          hintText: STR_SEARCH_HINT,
-          hintStyle: Theme.of(context).textTheme.bodyText1,
-          helperStyle: Theme.of(context).textTheme.bodyText2,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).accentColor),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).accentColor),
+  return AnimatedOpacity(
+    opacity: controller.showTextFormField.value ? 1.0 : 0.0,
+    duration: Duration(milliseconds: 1000),
+    child: Visibility(
+      visible: controller.showTextFormField.value,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(05),
+          topRight: Radius.circular(05),
+        ),
+        child: Padding(
+          padding: PAD_SYM_H10,
+          child: TextFormField(
+            controller: controller.searchText,
+            style: Theme.of(context).textTheme.bodyText1,
+            onChanged: (v) => controller.loadSearchList(),
+            maxLength: 50,
+            decoration: InputDecoration(
+              contentPadding: PAD_SYM_H10,
+              hintText: STR_SEARCH_HINT,
+              hintStyle: Theme.of(context).textTheme.bodyText1,
+              helperStyle: Theme.of(context).textTheme.bodyText2,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).accentColor),
+                borderRadius: BorderRadius.all(Radius.circular(05)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).accentColor),
+                borderRadius: BorderRadius.all(Radius.circular(05)),
+              ),
+              suffixIcon: Visibility(
+                visible: controller.showClearText.value,
+                child: GestureDetector(
+                  onTap: () => controller.onTapClearText(),
+                  child: Icon(
+                    Icons.cancel,
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

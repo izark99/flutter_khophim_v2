@@ -8,6 +8,7 @@ class SearchController extends GetxController {
   RxBool first = true.obs;
   RxBool minText = false.obs;
   RxBool showTextFormField = true.obs;
+  RxBool showClearText = false.obs;
   final webScraper = WebScraper('https://dongphym.net');
   var nameList = <String>[].obs;
   var linkList = <String>[].obs;
@@ -22,6 +23,7 @@ class SearchController extends GetxController {
   Future<void> loadSearchList() async {
     clear();
     first.value = false;
+    showClearText.value = true;
     if (searchText.text.length < 5) {
       clear();
       minText.value = true;
@@ -126,6 +128,12 @@ class SearchController extends GetxController {
       }
     }
     return newLength;
+  }
+
+  void onTapClearText() {
+    searchText.clear();
+    loadSearchList();
+    showClearText.value = false;
   }
 
   @override

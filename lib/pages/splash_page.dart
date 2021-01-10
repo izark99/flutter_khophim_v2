@@ -88,6 +88,7 @@ Widget _buildVersion(
 
 Widget _buildAuthor({@required BuildContext context}) {
   return ColorizeAnimatedTextKit(
+    repeatForever: true,
     textStyle: Theme.of(context).textTheme.headline2,
     text: ["make by Izark"],
     colors: [

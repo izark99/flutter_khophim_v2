@@ -42,7 +42,7 @@ class RecommendController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await loadRecommendList();
     HomeController().showPopUpDonate();
+    await loadRecommendList();
   }
 }

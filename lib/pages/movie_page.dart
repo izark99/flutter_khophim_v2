@@ -13,7 +13,7 @@ class MoviePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (_movieController.chapterLinkList.length > 0) {
+        if (_movieController.movieName.value.length > 0) {
           return OrientationBuilder(
             builder: (BuildContext context, Orientation orientation) {
               return Scaffold(

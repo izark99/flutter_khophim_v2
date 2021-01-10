@@ -24,28 +24,28 @@ class CustomChapterGridView extends StatelessWidget {
             final MovieController _movieController =
                 Get.find<MovieController>();
             return Obx(
-              () => FlatButton(
-                color: _movieController.index.value == index
-                    ? Color.fromRGBO(100, 149, 237, 1.0)
-                    : Theme.of(context).accentColor,
+              () => TextButton(
                 onPressed: () {
                   _movieController.changeChapter(index);
                 },
-                child: Obx(
-                  () => Text(
-                    "Tập " +
-                        chapterNameList[index]
-                            .toString()
-                            .replaceAll("Thuyết Minh", "TM"),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText2.copyWith(
-                          color: _movieController.index.value == index
-                              ? Colors.white
-                              : Theme.of(context).canvasColor,
-                        ),
-                  ),
+                style: TextButton.styleFrom(
+                  primary: _movieController.index.value == index
+                      ? Colors.white
+                      : Theme.of(context).canvasColor,
+                  backgroundColor: _movieController.index.value == index
+                      ? Color.fromRGBO(100, 149, 237, 1.0)
+                      : Theme.of(context).accentColor,
+                  textStyle: Theme.of(context).textTheme.bodyText2,
+                  padding: PAD_SYM_H10,
+                ),
+                child: Text(
+                  "Tập " +
+                      chapterNameList[index]
+                          .toString()
+                          .replaceAll("Thuyết Minh", "TM"),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             );
