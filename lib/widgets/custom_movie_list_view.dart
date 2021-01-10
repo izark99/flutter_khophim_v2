@@ -22,7 +22,7 @@ class CustomMovieListView extends StatelessWidget {
       padding: PAD_SYM_H05,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 9,
+        itemCount: 12,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
