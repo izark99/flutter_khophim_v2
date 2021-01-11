@@ -17,7 +17,7 @@ class HomeController extends GetxController {
       Get.defaultDialog(
         radius: 10,
         title: "",
-        backgroundColor: Colors.white,
+        backgroundColor: Get.theme.canvasColor,
         titleStyle: Get.theme.textTheme.headline5.copyWith(
           color: Colors.black87,
           height: 0,
@@ -38,74 +38,62 @@ class HomeController extends GetxController {
               ],
             ),
             SIZED_BOX_H10,
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                color: Colors.limeAccent,
-                child: Column(
-                  children: [
-                    SIZED_BOX_H10,
-                    Text(
-                      "Ứng dụng được phát triển bởi Izark. Nếu bạn thích nó, hãy Donate ♥",
-                      textAlign: TextAlign.center,
-                      style: Get.theme.textTheme.bodyText1
-                          .copyWith(color: Colors.black87),
-                    ),
-                    TextButton.icon(
-                      onPressed: () async {
-                        String url = "https://nhantien.momo.vn/khophim";
-                        await launch(url);
-                      },
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: Colors.redAccent,
-                      ),
-                      icon: Icon(Icons.account_balance_outlined),
-                      label: Text(
-                        "Donate qua MOMO",
-                        style: Get.theme.textTheme.bodyText1
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                    SIZED_BOX_H05,
-                  ],
+            Column(
+              children: [
+                SIZED_BOX_H10,
+                Text(
+                  "Ứng dụng được phát triển bởi Izark. Nếu bạn thích nó, hãy Donate ♥",
+                  textAlign: TextAlign.center,
+                  style: Get.theme.textTheme.bodyText1
+                      .copyWith(color: Get.theme.accentColor),
                 ),
-              ),
+                TextButton.icon(
+                  onPressed: () async {
+                    String url = "https://nhantien.momo.vn/khophim";
+                    await launch(url);
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.redAccent,
+                  ),
+                  icon: Icon(Icons.account_balance_outlined),
+                  label: Text(
+                    "Donate qua MOMO",
+                    style: Get.theme.textTheme.bodyText1
+                        .copyWith(color: Colors.white),
+                  ),
+                ),
+                SIZED_BOX_H05,
+              ],
             ),
             SIZED_BOX_H10,
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                color: Colors.lightGreenAccent,
-                child: Column(
-                  children: [
-                    SIZED_BOX_H10,
-                    Text(
-                      "Theo dõi kênh Telegram để nhận thông báo về phiên bản mới nhất",
-                      textAlign: TextAlign.center,
-                      style: Get.theme.textTheme.bodyText1
-                          .copyWith(color: Colors.black87),
-                    ),
-                    TextButton.icon(
-                      onPressed: () async {
-                        String url = "https://t.me/kho_phim";
-                        await launch(url);
-                      },
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: Colors.lightBlueAccent,
-                      ),
-                      icon: Icon(Icons.group_outlined),
-                      label: Text(
-                        "Theo dõi kênh Telegram",
-                        style: Get.theme.textTheme.bodyText1
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                    SIZED_BOX_H05,
-                  ],
+            Column(
+              children: [
+                SIZED_BOX_H10,
+                Text(
+                  "Theo dõi kênh Telegram để nhận thông báo về phiên bản mới nhất",
+                  textAlign: TextAlign.center,
+                  style: Get.theme.textTheme.bodyText1
+                      .copyWith(color: Get.theme.accentColor),
                 ),
-              ),
+                TextButton.icon(
+                  onPressed: () async {
+                    String url = "https://t.me/kho_phim";
+                    await launch(url);
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.deepOrange,
+                  ),
+                  icon: Icon(Icons.group_outlined),
+                  label: Text(
+                    "Theo dõi kênh Telegram",
+                    style: Get.theme.textTheme.bodyText1
+                        .copyWith(color: Colors.white),
+                  ),
+                ),
+                SIZED_BOX_H05,
+              ],
             ),
           ],
         ),
