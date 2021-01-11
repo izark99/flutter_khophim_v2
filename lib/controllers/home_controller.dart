@@ -47,26 +47,29 @@ class HomeController extends GetxController {
                   style: Get.theme.textTheme.bodyText1
                       .copyWith(color: Get.theme.accentColor),
                 ),
-                TextButton.icon(
-                  onPressed: () async {
-                    String url = "https://nhantien.momo.vn/khophim";
-                    await launch(url);
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Colors.redAccent,
-                  ),
-                  icon: Icon(Icons.account_balance_outlined),
-                  label: Text(
-                    "Donate qua MOMO",
-                    style: Get.theme.textTheme.bodyText1
-                        .copyWith(color: Colors.white),
+                Container(
+                  width: Get.context.size.width,
+                  child: TextButton.icon(
+                    onPressed: () async {
+                      String url = "https://nhantien.momo.vn/khophim";
+                      await launch(url);
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.redAccent,
+                    ),
+                    icon: Icon(Icons.account_balance_outlined),
+                    label: Text(
+                      "Donate qua MOMO",
+                      style: Get.theme.textTheme.bodyText1
+                          .copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
                 SIZED_BOX_H05,
               ],
             ),
-            SIZED_BOX_H10,
+            SIZED_BOX_H05,
             Column(
               children: [
                 SIZED_BOX_H10,
@@ -76,20 +79,23 @@ class HomeController extends GetxController {
                   style: Get.theme.textTheme.bodyText1
                       .copyWith(color: Get.theme.accentColor),
                 ),
-                TextButton.icon(
-                  onPressed: () async {
-                    String url = "https://t.me/kho_phim";
-                    await launch(url);
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Colors.deepOrange,
-                  ),
-                  icon: Icon(Icons.group_outlined),
-                  label: Text(
-                    "Theo dõi kênh Telegram",
-                    style: Get.theme.textTheme.bodyText1
-                        .copyWith(color: Colors.white),
+                Container(
+                  width: Get.context.size.width,
+                  child: TextButton.icon(
+                    onPressed: () async {
+                      String url = "https://t.me/kho_phim";
+                      await launch(url);
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.deepOrange,
+                    ),
+                    icon: Icon(Icons.group_outlined),
+                    label: Text(
+                      "Theo dõi kênh Telegram",
+                      style: Get.theme.textTheme.bodyText1
+                          .copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
                 SIZED_BOX_H05,

@@ -107,7 +107,7 @@ Widget _buildListViewHorizontal({
       SIZED_BOX_H20,
       CustomCategoryTitle(
         title: category,
-        onTap: onTap,
+        onPressed: onTap,
       ),
       SIZED_BOX_H10,
       Container(

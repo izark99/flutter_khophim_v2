@@ -25,8 +25,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void splashDelay() async {
-    await Future.delayed(Duration(seconds: 3));
-    Get.offAndToNamed("/Home");
+    await Future.delayed(Duration(seconds: 1));
+    Get.offAndToNamed("/Root");
   }
 
   @override

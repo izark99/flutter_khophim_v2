@@ -47,8 +47,7 @@ class MovieController extends GetxController {
       );
       for (int i = 0; i < _tempList.length; i++) {
         chapterLinkList.add(_tempList[i]['attributes']['href']);
-        chapterNameList
-            .add(_tempList[i]['attributes']['title'].replaceAll("Tập ", ""));
+        chapterNameList.add(_tempList[i]['attributes']['title']);
       }
       _tempList.clear();
       if (chapterLinkList.length > 0) {

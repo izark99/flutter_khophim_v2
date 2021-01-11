@@ -2,6 +2,12 @@ import 'package:khophim/helpers/constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomLoading extends StatelessWidget {
+  final String text;
+
+  const CustomLoading({
+    Key key,
+    this.text,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -10,7 +16,7 @@ class CustomLoading extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            STR_LOADING,
+            text != null ? text : STR_LOADING,
             style: Theme.of(context).textTheme.bodyText1,
           ),
           SIZED_BOX_H05,

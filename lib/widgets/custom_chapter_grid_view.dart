@@ -39,10 +39,9 @@ class CustomChapterGridView extends StatelessWidget {
                   padding: PAD_SYM_H10,
                 ),
                 child: Text(
-                  "Tập " +
-                      chapterNameList[index]
-                          .toString()
-                          .replaceAll("Thuyết Minh", "TM"),
+                  chapterNameList[index]
+                      .toString()
+                      .replaceAll("Thuyết Minh", "TM"),
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

@@ -4,12 +4,12 @@ import 'package:khophim/widgets/custom_button.dart';
 
 class CustomCategoryTitle extends StatelessWidget {
   final String title;
-  final Function onTap;
+  final Function onPressed;
 
   const CustomCategoryTitle({
     Key key,
     @required this.title,
-    this.onTap,
+    this.onPressed,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CustomCategoryTitle extends StatelessWidget {
           ),
           CustomButton(
             buttonName: STR_SEE_ALL,
-            onTap: onTap,
+            onPressed: onPressed,
           )
         ],
       ),

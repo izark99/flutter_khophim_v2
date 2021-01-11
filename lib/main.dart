@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -7,10 +8,13 @@ import 'package:khophim/pages/home_page.dart';
 import 'package:khophim/pages/movie_page.dart';
 
 import 'helpers/theme_customized.dart';
+import 'pages/auth_page.dart';
+import 'pages/root_page.dart';
 import 'pages/splash_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -37,6 +41,14 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/Splash",
           page: () => SplashPage(),
+        ),
+        GetPage(
+          name: "/Root",
+          page: () => RootPage(),
+        ),
+        GetPage(
+          name: "/Auth",
+          page: () => AuthPage(),
         ),
         GetPage(
           name: "/Home",

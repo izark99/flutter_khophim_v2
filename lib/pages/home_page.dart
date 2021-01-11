@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:khophim/controllers/auth_controller.dart';
 import 'package:khophim/controllers/home_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/pages/tabs/favourite_tab.dart';
@@ -23,15 +24,13 @@ class HomePage extends StatelessWidget {
 
 Widget _buildAppBar({@required BuildContext context}) {
   final HomeController _homeController = Get.find<HomeController>();
+  final AuthController _authController = Get.find<AuthController>();
   return AppBar(
     brightness: Theme.of(context).primaryColorBrightness,
     elevation: 0.0,
     leading: CustomIcon(
-      icon: Icons.info_outline,
-      onTap: () {
-        _homeController.show.value = true;
-        _homeController.showPopUpDonate();
-      },
+      icon: Icons.account_circle_outlined,
+      onTap: () => _authController.signOut(),
     ),
     centerTitle: true,
     title: CustomTitle(
@@ -40,8 +39,11 @@ Widget _buildAppBar({@required BuildContext context}) {
     ),
     actions: [
       CustomIcon(
-        icon: Icons.exit_to_app,
-        onTap: null,
+        icon: Icons.info_outline,
+        onTap: () {
+          _homeController.show.value = true;
+          _homeController.showPopUpDonate();
+        },
       ),
       SIZED_BOX_W10,
     ],

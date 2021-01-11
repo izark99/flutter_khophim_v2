@@ -4,6 +4,7 @@ import 'package:khophim/controllers/search_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/widgets/custom_loading.dart';
 import 'package:khophim/widgets/custom_movie_grid_view.dart';
+import 'package:khophim/widgets/custom_text_form_field.dart';
 
 class SearchTab extends StatelessWidget {
   @override
@@ -79,35 +80,22 @@ Widget _buildTextFormField({@required BuildContext context}) {
         ),
         child: Padding(
           padding: PAD_SYM_H10,
-          child: TextFormField(
+          child: CustomTextFormField(
             controller: controller.searchText,
-            style: Theme.of(context).textTheme.bodyText1,
-            onChanged: (v) => controller.loadSearchList(),
+            hint: STR_SEARCH_HINT,
             maxLength: 50,
-            decoration: InputDecoration(
-              contentPadding: PAD_SYM_H10,
-              hintText: STR_SEARCH_HINT,
-              hintStyle: Theme.of(context).textTheme.bodyText1,
-              helperStyle: Theme.of(context).textTheme.bodyText2,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).accentColor),
-                borderRadius: BorderRadius.all(Radius.circular(05)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).accentColor),
-                borderRadius: BorderRadius.all(Radius.circular(05)),
-              ),
-              suffixIcon: Visibility(
-                visible: controller.showClearText.value,
-                child: GestureDetector(
-                  onTap: () => controller.onTapClearText(),
-                  child: Icon(
-                    Icons.cancel,
-                    color: Theme.of(context).accentColor,
-                  ),
+            onChanged: () => controller.loadSearchList(),
+            suffixIcon: Visibility(
+              visible: controller.showClearText.value,
+              child: GestureDetector(
+                onTap: () => controller.onTapClearText(),
+                child: Icon(
+                  Icons.cancel,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),
+            useOnChanged: true,
           ),
         ),
       ),
