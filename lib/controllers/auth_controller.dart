@@ -86,6 +86,7 @@ class AuthController extends GetxController {
         height: 0,
       ),
       content: CustomLoading(text: "ĐANG TẠO TÀI KHOẢN"),
+      onWillPop: () async => false,
     );
     String resultAuth = await auth.signUp(
       email: emailText.text.trim(),
@@ -157,6 +158,7 @@ class AuthController extends GetxController {
         height: 0,
       ),
       content: CustomLoading(text: "ĐANG ĐĂNG NHẬP"),
+      onWillPop: () async => false,
     );
     String resultAuth = await auth.signIn(
       email: emailText.text.trim(),
@@ -240,11 +242,11 @@ class AuthController extends GetxController {
         height: 0,
       ),
       content: CustomLoading(text: "ĐANG GỬI EMAIL KHÔI PHỤC"),
+      onWillPop: () async => false,
     );
     String resultAuth = await auth.forgotPassword(
       email: emailTextForgot.text.trim(),
     );
-    Get.back();
     if (resultAuth != "Success") {
       switch (resultAuth) {
         case "Email is empty":
@@ -289,9 +291,16 @@ class AuthController extends GetxController {
           break;
       }
     } else {
+      Get.back();
       emailText.clear();
       passwordText.clear();
       emailTextForgot.clear();
+      Get.snackbar(
+        "GỬI EMAIL KHÔI PHỤC THÀNH CÔNG",
+        "Gửi email khôi phục thành công, vui lòng kiểm tra email và làm theo hướng dẫn",
+        snackPosition: SnackPosition.TOP,
+        colorText: Get.context.theme.accentColor,
+      );
     }
   }
 
@@ -306,6 +315,7 @@ class AuthController extends GetxController {
         height: 0,
       ),
       content: CustomLoading(text: "ĐANG ĐỔI MẬT KHẨU"),
+      onWillPop: () async => false,
     );
     String result =
         await auth.validatePassword(currentPassword: currentPasswordText.text);
@@ -343,6 +353,12 @@ class AuthController extends GetxController {
         Get.back();
         currentPasswordText.clear();
         newPasswordText.clear();
+        Get.snackbar(
+          "ĐỔI MẬT KHẨU THÀNH CÔNG",
+          "Mật khẩu của tài khoản đã được cập nhật thành công",
+          snackPosition: SnackPosition.TOP,
+          colorText: Get.context.theme.accentColor,
+        );
       }
     }
   }

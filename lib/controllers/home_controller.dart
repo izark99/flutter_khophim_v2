@@ -13,8 +13,8 @@ import 'auth_controller.dart';
 class HomeController extends GetxController {
   RxInt _tabIndexHomePage = 0.obs;
   RxBool show = true.obs;
-  RxBool showCurrentPassword = false.obs;
-  RxBool showNewPassword = false.obs;
+  RxBool hideCurrentPassword = true.obs;
+  RxBool hideNewPassword = true.obs;
 
   int get tabIndexHomePage => _tabIndexHomePage.value;
   void changeTabIndexHomePage(int newIndex) {
@@ -22,11 +22,11 @@ class HomeController extends GetxController {
   }
 
   void showHideCurrentPassword() {
-    showCurrentPassword.value = !showCurrentPassword.value;
+    hideCurrentPassword.value = !hideCurrentPassword.value;
   }
 
   void showHideNewPassword() {
-    showNewPassword.value = !showNewPassword.value;
+    hideNewPassword.value = !hideNewPassword.value;
   }
 
   void showPopUpDonate() {
@@ -234,7 +234,7 @@ class HomeController extends GetxController {
                 SIZED_BOX_H10,
                 Obx(
                   () => CustomTextFormField(
-                    obscureText: !showCurrentPassword.value,
+                    obscureText: hideCurrentPassword.value,
                     autofocus: true,
                     controller: Get.find<AuthController>().currentPasswordText,
                     hint: 'Mật khẩu hiện tại',
@@ -246,7 +246,7 @@ class HomeController extends GetxController {
                     suffixIcon: GestureDetector(
                       onTap: () => showHideCurrentPassword(),
                       child: Icon(
-                        !showCurrentPassword.value
+                        hideCurrentPassword.value
                             ? Icons.visibility_off
                             : Icons.visibility,
                         color: Get.context.theme.accentColor,
@@ -257,7 +257,7 @@ class HomeController extends GetxController {
                 SIZED_BOX_H10,
                 Obx(
                   () => CustomTextFormField(
-                    obscureText: !showNewPassword.value,
+                    obscureText: hideNewPassword.value,
                     autofocus: true,
                     controller: Get.find<AuthController>().newPasswordText,
                     hint: 'Mật khẩu mới',
@@ -269,7 +269,7 @@ class HomeController extends GetxController {
                     suffixIcon: GestureDetector(
                       onTap: () => showHideNewPassword(),
                       child: Icon(
-                        !showNewPassword.value
+                        hideNewPassword.value
                             ? Icons.visibility_off
                             : Icons.visibility,
                         color: Get.context.theme.accentColor,
