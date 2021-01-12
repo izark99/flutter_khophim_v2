@@ -13,10 +13,20 @@ import 'auth_controller.dart';
 class HomeController extends GetxController {
   RxInt _tabIndexHomePage = 0.obs;
   RxBool show = true.obs;
+  RxBool showCurrentPassword = false.obs;
+  RxBool showNewPassword = false.obs;
 
   int get tabIndexHomePage => _tabIndexHomePage.value;
   void changeTabIndexHomePage(int newIndex) {
     _tabIndexHomePage.value = newIndex;
+  }
+
+  void showHideCurrentPassword() {
+    showCurrentPassword.value = !showCurrentPassword.value;
+  }
+
+  void showHideNewPassword() {
+    showNewPassword.value = !showNewPassword.value;
   }
 
   void showPopUpDonate() {
@@ -156,7 +166,11 @@ class HomeController extends GetxController {
           Container(
             width: Get.context.size.width,
             child: TextButton.icon(
-              onPressed: () => showBottomSheet(),
+              onPressed: () {
+                Get.find<AuthController>().currentPasswordText.clear();
+                Get.find<AuthController>().newPasswordText.clear();
+                showBottomSheet();
+              },
               style: TextButton.styleFrom(
                 primary: Colors.white,
                 backgroundColor: Colors.lightBlue,
@@ -218,18 +232,50 @@ class HomeController extends GetxController {
                   style: Get.context.textTheme.headline5,
                 ),
                 SIZED_BOX_H10,
-                CustomTextFormField(
-                  autofocus: true,
-                  controller: Get.find<AuthController>().currentPasswordText,
-                  hint: 'Mật khẩu hiện tại',
-                  useOnChanged: false,
+                Obx(
+                  () => CustomTextFormField(
+                    obscureText: !showCurrentPassword.value,
+                    autofocus: true,
+                    controller: Get.find<AuthController>().currentPasswordText,
+                    hint: 'Mật khẩu hiện tại',
+                    useOnChanged: false,
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Get.context.theme.accentColor,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () => showHideCurrentPassword(),
+                      child: Icon(
+                        !showCurrentPassword.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Get.context.theme.accentColor,
+                      ),
+                    ),
+                  ),
                 ),
                 SIZED_BOX_H10,
-                CustomTextFormField(
-                  autofocus: true,
-                  controller: Get.find<AuthController>().newPasswordText,
-                  hint: 'Mật khẩu mới',
-                  useOnChanged: false,
+                Obx(
+                  () => CustomTextFormField(
+                    obscureText: !showNewPassword.value,
+                    autofocus: true,
+                    controller: Get.find<AuthController>().newPasswordText,
+                    hint: 'Mật khẩu mới',
+                    useOnChanged: false,
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Get.context.theme.accentColor,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () => showHideNewPassword(),
+                      child: Icon(
+                        !showNewPassword.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Get.context.theme.accentColor,
+                      ),
+                    ),
+                  ),
                 ),
                 SIZED_BOX_H10,
                 CustomButton(
