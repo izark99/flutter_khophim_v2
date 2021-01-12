@@ -1,12 +1,19 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/helpers/constant.dart';
+import 'package:khophim/widgets/custom_button.dart';
+import 'package:khophim/widgets/custom_text_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:date_time_format/date_time_format.dart';
+
+import 'auth_controller.dart';
 
 class HomeController extends GetxController {
   RxInt _tabIndexHomePage = 0.obs;
   RxBool show = true.obs;
+
   int get tabIndexHomePage => _tabIndexHomePage.value;
   void changeTabIndexHomePage(int newIndex) {
     _tabIndexHomePage.value = newIndex;
@@ -88,7 +95,7 @@ class HomeController extends GetxController {
                     },
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: Colors.deepOrange,
+                      backgroundColor: Colors.lightBlue,
                     ),
                     icon: Icon(Icons.group_outlined),
                     label: Text(
@@ -106,5 +113,135 @@ class HomeController extends GetxController {
       );
     }
     show.value = false;
+  }
+
+  void showPopUpInfo() {
+    Get.defaultDialog(
+      radius: 10,
+      title: "",
+      backgroundColor: Get.theme.canvasColor,
+      titleStyle: Get.theme.textTheme.headline5.copyWith(
+        color: Colors.black87,
+        height: 0,
+      ),
+      content: Column(
+        children: [
+          Text(
+            "THÔNG TIN TÀI KHOẢN",
+            style: Get.context.theme.textTheme.headline5,
+          ),
+          SIZED_BOX_H10,
+          Obx(
+            () => Get.find<AccountController>().account.email != null
+                ? Text(
+                    "Email: " + Get.find<AccountController>().account.email,
+                    style: Get.context.theme.textTheme.bodyText1,
+                  )
+                : Container(),
+          ),
+          SIZED_BOX_H10,
+          Obx(
+            () => Get.find<AccountController>().account.createAt != null
+                ? Text(
+                    "Ngày tạo: " +
+                        Get.find<AccountController>()
+                            .account
+                            .createAt
+                            .format('d/m/Y'),
+                    style: Get.context.theme.textTheme.bodyText1,
+                  )
+                : Container(),
+          ),
+          SIZED_BOX_H10,
+          Container(
+            width: Get.context.size.width,
+            child: TextButton.icon(
+              onPressed: () => showBottomSheet(),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.lightBlue,
+              ),
+              icon: Icon(Icons.lock_outline),
+              label: Text(
+                "ĐỔI MẬT KHẨU",
+                style:
+                    Get.theme.textTheme.bodyText1.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            width: Get.context.size.width,
+            child: TextButton.icon(
+              onPressed: () {
+                Get.back();
+                Get.find<AuthController>().signOut();
+              },
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.redAccent,
+              ),
+              icon: Icon(Icons.exit_to_app_outlined),
+              label: Text(
+                "ĐĂNG XUẤT",
+                style:
+                    Get.theme.textTheme.bodyText1.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showBottomSheet() {
+    Get.back();
+    Get.bottomSheet(
+      Container(
+        decoration: BoxDecoration(
+          color: Get.context.theme.accentColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: PAD_ALL_01,
+        margin: PAD_ALL_10,
+        child: Container(
+          padding: PAD_ALL_10,
+          decoration: BoxDecoration(
+            color: Get.context.theme.canvasColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SIZED_BOX_H05,
+                Text(
+                  "ĐỔI MẬT KHẨU",
+                  style: Get.context.textTheme.headline5,
+                ),
+                SIZED_BOX_H10,
+                CustomTextFormField(
+                  autofocus: true,
+                  controller: Get.find<AuthController>().currentPasswordText,
+                  hint: 'Mật khẩu hiện tại',
+                  useOnChanged: false,
+                ),
+                SIZED_BOX_H10,
+                CustomTextFormField(
+                  autofocus: true,
+                  controller: Get.find<AuthController>().newPasswordText,
+                  hint: 'Mật khẩu mới',
+                  useOnChanged: false,
+                ),
+                SIZED_BOX_H10,
+                CustomButton(
+                  buttonName: "ĐỔI MẬT KHẨU",
+                  onPressed: () => Get.find<AuthController>().changePassword(),
+                  textStyle: Get.context.textTheme.bodyText1,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

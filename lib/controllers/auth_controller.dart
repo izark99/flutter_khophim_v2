@@ -8,6 +8,8 @@ import 'package:khophim/widgets/custom_button.dart';
 import 'package:khophim/widgets/custom_loading.dart';
 import 'package:khophim/widgets/custom_text_form_field.dart';
 
+import 'account_controller.dart';
+
 class AuthController extends GetxController {
   final AuthService auth = AuthService();
   final DatabaseService database = DatabaseService();
@@ -17,7 +19,9 @@ class AuthController extends GetxController {
   User get user => _user.value;
   final TextEditingController emailText = TextEditingController();
   final TextEditingController passwordText = TextEditingController();
-  final TextEditingController emailTextFogot = TextEditingController();
+  final TextEditingController emailTextForgot = TextEditingController();
+  final TextEditingController currentPasswordText = TextEditingController();
+  final TextEditingController newPasswordText = TextEditingController();
 
   void changeUI() {
     isSignInUI.value = !isSignInUI.value;
@@ -35,7 +39,7 @@ class AuthController extends GetxController {
           borderRadius: BorderRadius.circular(10),
         ),
         padding: PAD_ALL_01,
-        margin: PAD_SYM_H10,
+        margin: PAD_ALL_10,
         child: Container(
           padding: PAD_ALL_10,
           decoration: BoxDecoration(
@@ -53,7 +57,7 @@ class AuthController extends GetxController {
                 SIZED_BOX_H10,
                 CustomTextFormField(
                   autofocus: true,
-                  controller: emailTextFogot,
+                  controller: emailTextForgot,
                   hint: 'Email của bạn',
                   useOnChanged: false,
                 ),
@@ -114,6 +118,14 @@ class AuthController extends GetxController {
             colorText: Get.context.theme.accentColor,
           );
           break;
+        case "No internet connection":
+          Get.snackbar(
+            "ĐĂNG KÝ THẤT BẠI",
+            "Không có kết nối Internet",
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Get.context.theme.accentColor,
+          );
+          break;
         default:
           Get.snackbar(
             "ĐĂNG KÝ THẤT BẠI",
@@ -123,14 +135,15 @@ class AuthController extends GetxController {
           );
           break;
       }
+    } else {
+      await database.createAccount(
+        uid: user.uid,
+        email: emailText.text,
+      );
+      emailText.clear();
+      passwordText.clear();
+      emailTextForgot.clear();
     }
-    await database.createAccount(
-      uid: _user.value.uid,
-      email: emailText.text,
-    );
-    emailText.clear();
-    passwordText.clear();
-    emailTextFogot.clear();
   }
 
   void signIn() async {
@@ -184,6 +197,14 @@ class AuthController extends GetxController {
             colorText: Get.context.theme.accentColor,
           );
           break;
+        case "No internet connection":
+          Get.snackbar(
+            "ĐĂNG NHẬP THẤT BẠI",
+            "Không có kết nối Internet",
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Get.context.theme.accentColor,
+          );
+          break;
         default:
           Get.snackbar(
             "ĐĂNG NHẬP THẤT BẠI",
@@ -193,16 +214,17 @@ class AuthController extends GetxController {
           );
           break;
       }
+    } else {
+      emailText.clear();
+      passwordText.clear();
+      emailTextForgot.clear();
     }
-    emailText.clear();
-    passwordText.clear();
-    emailTextFogot.clear();
   }
 
   void signOut() async {
     emailText.clear();
     passwordText.clear();
-    emailTextFogot.clear();
+    emailTextForgot.clear();
     isSignInUI.value = true;
     await auth.signOut();
   }
@@ -220,7 +242,7 @@ class AuthController extends GetxController {
       content: CustomLoading(text: "ĐANG GỬI EMAIL KHÔI PHỤC"),
     );
     String resultAuth = await auth.forgotPassword(
-      email: emailTextFogot.text.trim(),
+      email: emailTextForgot.text.trim(),
     );
     Get.back();
     if (resultAuth != "Success") {
@@ -249,6 +271,14 @@ class AuthController extends GetxController {
             colorText: Get.context.theme.accentColor,
           );
           break;
+        case "No internet connection":
+          Get.snackbar(
+            "GỬI EMAIL KHÔI PHỤC THẤT BẠI",
+            "Không có kết nối Internet",
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Get.context.theme.accentColor,
+          );
+          break;
         default:
           Get.snackbar(
             "GỬI EMAIL KHÔI PHỤC THẤT BẠI",
@@ -258,15 +288,80 @@ class AuthController extends GetxController {
           );
           break;
       }
+    } else {
+      emailText.clear();
+      passwordText.clear();
+      emailTextForgot.clear();
     }
-    emailText.clear();
-    passwordText.clear();
-    emailTextFogot.clear();
+  }
+
+  void changePassword() async {
+    Get.defaultDialog(
+      barrierDismissible: false,
+      radius: 10,
+      title: "",
+      backgroundColor: Get.theme.canvasColor,
+      titleStyle: Get.theme.textTheme.headline5.copyWith(
+        color: Colors.black87,
+        height: 0,
+      ),
+      content: CustomLoading(text: "ĐANG ĐỔI MẬT KHẨU"),
+    );
+    String result =
+        await auth.validatePassword(currentPassword: currentPasswordText.text);
+    Get.back();
+    if (result != "Success") {
+      switch (result) {
+        case "Wrong password":
+          Get.snackbar(
+            "ĐỔI MẬT KHẨU THẤT BẠI",
+            "Mật khẩu hiện tại không chính xác",
+            snackPosition: SnackPosition.TOP,
+            colorText: Get.context.theme.accentColor,
+          );
+          break;
+        default:
+          Get.snackbar(
+            "ĐỔI MẬT KHẨU THẤT BẠI",
+            result,
+            snackPosition: SnackPosition.TOP,
+            colorText: Get.context.theme.accentColor,
+          );
+          break;
+      }
+    } else {
+      String resultChangePass =
+          await auth.changePassword(newPassword: newPasswordText.text.trim());
+      if (resultChangePass != "Success") {
+        Get.snackbar(
+          "ĐỔI MẬT KHẨU THẤT BẠI",
+          resultChangePass,
+          snackPosition: SnackPosition.TOP,
+          colorText: Get.context.theme.accentColor,
+        );
+      } else {
+        Get.back();
+        currentPasswordText.clear();
+        newPasswordText.clear();
+      }
+    }
   }
 
   @override
   void onReady() {
     super.onReady();
-    _user.bindStream(auth.user);
+    _user.bindStream(auth?.user);
+    ever(
+      _user,
+      (User value) async {
+        if (value != null) {
+          Get.find<AccountController>().account = await database.getAccountInfo(
+            uid: value.uid,
+          );
+        } else {
+          Get.find<AccountController>().clear();
+        }
+      },
+    );
   }
 }

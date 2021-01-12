@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/controllers/animated_movies_controller.dart';
 import 'package:khophim/controllers/auth_controller.dart';
 import 'package:khophim/controllers/home_controller.dart';
@@ -21,5 +22,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => TVShowsController());
     Get.lazyPut(() => SearchController());
     Get.lazyPut(() => MovieController());
+    Get.lazyPut(() => AccountController());
   }
 }
