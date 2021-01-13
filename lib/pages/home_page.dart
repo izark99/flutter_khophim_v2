@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:khophim/controllers/home_controller.dart';
 import 'package:khophim/helpers/constant.dart';
-import 'package:khophim/pages/tabs/favourite_tab.dart';
+import 'package:khophim/pages/tabs/history_tab.dart';
 import 'package:khophim/pages/tabs/index_tab.dart';
 import 'package:khophim/pages/tabs/search_tab.dart';
 import 'package:khophim/widgets/custom_bottom_navigation_bar.dart';
@@ -58,8 +58,8 @@ Widget _buildBottomNavigationBar({@required BuildContext context}) {
           icon: Icons.video_label,
         ),
         GButton(
-          text: STR_FAVORITE,
-          icon: Icons.favorite,
+          text: STR_HISTORY,
+          icon: Icons.history,
         ),
         GButton(
           text: STR_SEARCH,
@@ -77,7 +77,7 @@ Widget _buildBody({@required BuildContext context}) {
   final HomeController controller = Get.find<HomeController>();
   switch (controller.tabIndexHomePage) {
     case 1:
-      return FavouriteTab();
+      return HistoryTab();
       break;
     case 2:
       return SearchTab();

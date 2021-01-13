@@ -9,6 +9,7 @@ import 'package:khophim/widgets/custom_loading.dart';
 import 'package:khophim/widgets/custom_text_form_field.dart';
 
 import 'account_controller.dart';
+import 'history_controller.dart';
 
 class AuthController extends GetxController {
   final AuthService auth = AuthService();
@@ -374,8 +375,18 @@ class AuthController extends GetxController {
           Get.find<AccountController>().account = await database.getAccountInfo(
             uid: value.uid,
           );
+          Get.find<HistoryController>().nameList.bindStream(database
+              .streamHistoryNameList(uid: Get.find<AuthController>().user.uid));
+          Get.find<HistoryController>().linkList.bindStream(database
+              .streamHistoryLinkList(uid: Get.find<AuthController>().user.uid));
+          Get.find<HistoryController>().imageList.bindStream(
+              database.streamHistoryImageList(
+                  uid: Get.find<AuthController>().user.uid));
         } else {
           Get.find<AccountController>().clear();
+          Get.find<HistoryController>().nameList.clear();
+          Get.find<HistoryController>().imageList.clear();
+          Get.find<HistoryController>().linkList.clear();
         }
       },
     );

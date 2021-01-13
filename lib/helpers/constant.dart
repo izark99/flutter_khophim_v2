@@ -60,5 +60,5 @@ const STR_SEARCH_HINT = "Nhập tên phim cần tìm";
 const STR_SEARCH_RESULT = "KẾT QUẢ TÌM KIẾM";
 const STR_HOME = "TRANG CHỦ";
 const STR_SEARCH = "TÌM KIẾM";
-const STR_FAVORITE = "YÊU THÍCH";
+const STR_HISTORY = "LỊCH SỬ";
 const STR_PROFILE = "CÁ NHÂN";

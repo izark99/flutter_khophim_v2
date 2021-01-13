@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/controllers/animated_movies_controller.dart';
 import 'package:khophim/controllers/auth_controller.dart';
+import 'package:khophim/controllers/history_controller.dart';
 import 'package:khophim/controllers/home_controller.dart';
 import 'package:khophim/controllers/movie_controller.dart';
 import 'package:khophim/controllers/recommend_controller.dart';
@@ -23,5 +24,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => SearchController());
     Get.lazyPut(() => MovieController());
     Get.lazyPut(() => AccountController());
+    Get.lazyPut(() => HistoryController(), fenix: true);
   }
 }

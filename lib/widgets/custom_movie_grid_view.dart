@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khophim/controllers/history_controller.dart';
 import 'package:khophim/controllers/movie_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 
@@ -46,6 +47,13 @@ class CustomMovieGridView extends StatelessWidget {
               onTap: () {
                 final MovieController movieController =
                     Get.find<MovieController>();
+                final HistoryController historyController =
+                    Get.find<HistoryController>();
+                historyController.addToHistoryList(
+                  url: linkList[index],
+                  name: nameList[index],
+                  img: imageList[index],
+                );
                 movieController.clear();
                 movieController.loadDetail(linkList[index]);
                 Get.toNamed("/Movie");

@@ -2,18 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
+import 'package:khophim/controllers/history_controller.dart';
 import 'package:khophim/controllers/movie_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 
 class CustomSwiper extends StatelessWidget {
   final List<String> nameList;
   final List<String> imageList;
+  final List<String> imageDList;
   final List<String> linkList;
   const CustomSwiper({
     Key key,
     @required this.imageList,
     @required this.nameList,
     @required this.linkList,
+    @required this.imageDList,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,13 @@ class CustomSwiper extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             final MovieController movieController = Get.find<MovieController>();
+            final HistoryController historyController =
+                Get.find<HistoryController>();
+            historyController.addToHistoryList(
+              url: linkList[index],
+              name: nameList[index],
+              img: imageList[index],
+            );
             movieController.clear();
             movieController.loadDetail(linkList[index]);
             Get.toNamed("/Movie");
@@ -41,8 +51,9 @@ class CustomSwiper extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CachedNetworkImage(
+                            width: Get.size.width,
                             fit: BoxFit.cover,
-                            imageUrl: imageList[index],
+                            imageUrl: imageDList[index],
                             progressIndicatorBuilder:
                                 (context, url, downloadProgress) => Center(
                               child: CircularProgressIndicator(
@@ -81,7 +92,7 @@ class CustomSwiper extends StatelessWidget {
           ),
         );
       },
-      itemCount: imageList.length,
+      itemCount: imageDList.length,
       viewportFraction: 0.8,
       scale: 0.9,
       autoplay: true,
