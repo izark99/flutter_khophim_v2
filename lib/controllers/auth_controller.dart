@@ -375,13 +375,24 @@ class AuthController extends GetxController {
           Get.find<AccountController>().account = await database.getAccountInfo(
             uid: value.uid,
           );
-          Get.find<HistoryController>().nameList.bindStream(database
-              .streamHistoryNameList(uid: Get.find<AuthController>().user.uid));
-          Get.find<HistoryController>().linkList.bindStream(database
-              .streamHistoryLinkList(uid: Get.find<AuthController>().user.uid));
+          Get.find<HistoryController>().nameList.bindStream(
+                database.streamHistoryNameList(
+                  uid: Get.find<AuthController>().user.uid,
+                  limit: Get.find<HistoryController>().limit.value,
+                ),
+              );
+          Get.find<HistoryController>().linkList.bindStream(
+                database.streamHistoryLinkList(
+                  uid: Get.find<AuthController>().user.uid,
+                  limit: Get.find<HistoryController>().limit.value,
+                ),
+              );
           Get.find<HistoryController>().imageList.bindStream(
-              database.streamHistoryImageList(
-                  uid: Get.find<AuthController>().user.uid));
+                database.streamHistoryImageList(
+                  uid: Get.find<AuthController>().user.uid,
+                  limit: Get.find<HistoryController>().limit.value,
+                ),
+              );
         } else {
           Get.find<AccountController>().clear();
           Get.find<HistoryController>().nameList.clear();

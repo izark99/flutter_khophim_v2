@@ -33,60 +33,35 @@ class DatabaseService {
     @required String name,
     @required String img,
   }) async {
-    List<QueryDocumentSnapshot> temp = await _database
-        .collection("accounts")
-        .doc(uid)
-        .collection("historyList")
-        .where("url", isEqualTo: url)
-        .get()
-        .then((v) => v.docs);
-    int result = temp.length;
-    if (result > 0) {
-      try {
-        await _database
-            .collection("accounts")
-            .doc(uid)
-            .collection("historyList")
-            .doc(temp[0].id)
-            .update(
-          {
-            "at": DateTime.now(),
-            "img": img,
-            "name": name,
-          },
-        );
-        return "Success";
-      } catch (e) {
-        rethrow;
-      }
-    } else {
-      try {
-        await _database
-            .collection("accounts")
-            .doc(uid)
-            .collection("historyList")
-            .add(
-          {
-            "url": url,
-            "img": img,
-            "name": name,
-            "at": DateTime.now(),
-          },
-        );
-        return "Success";
-      } catch (e) {
-        rethrow;
-      }
+    url = url.replaceAll("/", ">");
+    try {
+      await _database
+          .collection("accounts")
+          .doc(uid)
+          .collection("historyList")
+          .doc(url)
+          .set(
+        {
+          "at": DateTime.now(),
+          "img": img,
+          "name": name,
+        },
+      );
+      return "Success";
+    } catch (e) {
+      rethrow;
     }
   }
 
-  Stream<List<String>> streamHistoryNameList({@required String uid}) {
+  Stream<List<String>> streamHistoryNameList(
+      {@required String uid, @required int limit}) {
     try {
       return _database
           .collection("accounts")
           .doc(uid)
           .collection("historyList")
           .orderBy("at", descending: true)
+          .limit(limit)
           .snapshots()
           .map((movie) {
         final List<String> retVal = [];
@@ -101,13 +76,15 @@ class DatabaseService {
     }
   }
 
-  Stream<List<String>> streamHistoryImageList({@required String uid}) {
+  Stream<List<String>> streamHistoryImageList(
+      {@required String uid, @required int limit}) {
     try {
       return _database
           .collection("accounts")
           .doc(uid)
           .collection("historyList")
           .orderBy("at", descending: true)
+          .limit(limit)
           .snapshots()
           .map((movie) {
         final List<String> retVal = [];
@@ -122,19 +99,91 @@ class DatabaseService {
     }
   }
 
-  Stream<List<String>> streamHistoryLinkList({@required String uid}) {
+  Future<int> getLengthHistoryList({@required String uid}) {
+    try {
+      return _database
+          .collection("accounts")
+          .doc(uid)
+          .collection("historyList")
+          .get()
+          .then((value) => value.docs.length);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Stream<List<String>> streamHistoryLinkList(
+      {@required String uid, @required int limit}) {
     try {
       return _database
           .collection("accounts")
           .doc(uid)
           .collection("historyList")
           .orderBy("at", descending: true)
+          .limit(limit)
           .snapshots()
           .map((movie) {
         final List<String> retVal = [];
         for (final DocumentSnapshot doc in movie.docs) {
-          retVal
-              .add(MovieModel.fromDocumentSnapshot(documentSnapshot: doc).url);
+          retVal.add(
+            MovieModel.fromDocumentSnapshot(documentSnapshot: doc)
+                .uid
+                .replaceAll(">", "/"),
+          );
+        }
+        return retVal;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> addChapter({
+    @required String uid,
+    @required String url,
+    @required String urlChapter,
+  }) async {
+    url = url.replaceAll("/", ">");
+    urlChapter = urlChapter.replaceAll("/", ">");
+    try {
+      await _database
+          .collection("accounts")
+          .doc(uid)
+          .collection("historyList")
+          .doc(url)
+          .collection("chapterList")
+          .doc(urlChapter)
+          .set(
+        {
+          "at": DateTime.now(),
+        },
+      );
+      return "Success";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Stream<List<String>> streamChapter(
+      {@required String uid, @required String url}) {
+    url = url.replaceAll("/", ">");
+    try {
+      return _database
+          .collection("accounts")
+          .doc(uid)
+          .collection("historyList")
+          .doc(url)
+          .collection("chapterList")
+          .orderBy("at", descending: true)
+          .snapshots()
+          .map((chapter) {
+        final List<String> retVal = [];
+        for (final DocumentSnapshot doc in chapter.docs) {
+          retVal.add(
+            MovieModel.fromDocumentSnapshot(documentSnapshot: doc)
+                .uid
+                .replaceAll(">", "/"),
+          );
         }
         return retVal;
       });

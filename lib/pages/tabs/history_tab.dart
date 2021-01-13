@@ -15,9 +15,14 @@ class HistoryTab extends StatelessWidget {
               nameList: controller.nameList,
               itemCount: controller.nameList.length,
               name: "",
-              scrollController: null,
+              scrollController: controller.scrollController,
             )
-          : Container(),
+          : Center(
+              child: Text(
+                "Không có lịch sử xem phim",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
     );
   }
 }
