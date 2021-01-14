@@ -16,6 +16,7 @@ class HistoryTab extends StatelessWidget {
               itemCount: controller.nameList.length,
               name: "",
               scrollController: controller.scrollController,
+              showDel: true,
             )
           : Center(
               child: Text(

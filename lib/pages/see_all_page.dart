@@ -24,6 +24,7 @@ class SeeAllPage extends StatelessWidget {
             nameList: controller.nameList,
             imageList: controller.imageList,
             linkList: controller.linkList,
+            showDel: false,
           );
         } else {
           return CustomLoading();

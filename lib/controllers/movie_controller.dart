@@ -5,11 +5,14 @@ import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/services/database_service.dart';
 import 'package:web_scraper/web_scraper.dart';
 
+import 'auth_controller.dart';
+
 class MovieController extends GetxController {
   final DatabaseService database = DatabaseService();
   final webScraper = WebScraper('https://dongphym.net');
   var chapterNameList = <String>[].obs;
   var chapterLinkList = <String>[].obs;
+  var chapterLinkListHistory = <String>[].obs;
   RxString movieName = "".obs;
   RxString movieImage = "".obs;
   RxString codeMovie = "".obs;
@@ -17,6 +20,7 @@ class MovieController extends GetxController {
   FlickManager flickManager;
   RxInt index = 0.obs;
   RxString urlChangeChapter = "".obs;
+  RxString urlMovie = "".obs;
 
   void clear() {
     chapterNameList.clear();
@@ -26,10 +30,13 @@ class MovieController extends GetxController {
     codeMovie.value = "";
     codeChapterList.clear();
     index.value = 0;
+    urlChangeChapter.value = "";
+    chapterLinkListHistory.clear();
+    urlMovie.value = "";
   }
 
   void loadDetail(String url) async {
-    urlChangeChapter.value = url;
+    urlMovie.value = url;
     String urlTemp = url.replaceAll('https://dongphym.net', "").trim();
     codeMovie.value = url.split("_")[1].split(".html")[0];
     List<Map<String, dynamic>> _tempList = [];
@@ -58,6 +65,7 @@ class MovieController extends GetxController {
       _tempList.clear();
       if (chapterLinkList.length > 0) {
         this.index.value = chapterLinkList.length - 1;
+        urlChangeChapter.value = chapterLinkList[this.index.value];
         flickManager = FlickManager(
           videoPlayerController: CachedVideoPlayerController.network(
               "https://asia00.fbcdn.space/rawhls/${codeMovie.value}/${codeChapterList[this.index.value]}-b2.m3u8"),
@@ -79,8 +87,22 @@ class MovieController extends GetxController {
     );
     await database.addChapter(
         uid: Get.find<AccountController>().account.uid,
-        url: urlChangeChapter.value.replaceAll("/", ">"),
+        url: urlMovie.value.replaceAll("/", ">"),
         urlChapter: chapterLinkList[this.index.value]);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    ever(
+      urlChangeChapter,
+      (value) {
+        chapterLinkListHistory.bindStream(
+          database.streamChapter(
+              uid: Get.find<AuthController>().user.uid, url: urlMovie.value),
+        );
+      },
+    );
   }
 
   @override

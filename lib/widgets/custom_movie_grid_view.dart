@@ -13,6 +13,7 @@ class CustomMovieGridView extends StatelessWidget {
   final List<String> nameList;
   final List<String> imageList;
   final List<String> linkList;
+  final bool showDel;
 
   const CustomMovieGridView({
     Key key,
@@ -22,6 +23,7 @@ class CustomMovieGridView extends StatelessWidget {
     @required this.nameList,
     @required this.imageList,
     @required this.linkList,
+    @required this.showDel,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -43,25 +45,63 @@ class CustomMovieGridView extends StatelessWidget {
           controller: scrollController,
           itemCount: itemCount,
           itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                final MovieController movieController =
-                    Get.find<MovieController>();
-                final HistoryController historyController =
-                    Get.find<HistoryController>();
-                historyController.addToHistoryList(
-                  url: linkList[index],
-                  name: nameList[index],
-                  img: imageList[index],
-                );
-                movieController.clear();
-                movieController.loadDetail(linkList[index]);
-                Get.toNamed("/Movie");
-              },
-              child: CustomMovieItem(
-                name: nameList[index],
-                image: imageList[index],
-              ),
+            return Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    final MovieController movieController =
+                        Get.find<MovieController>();
+                    final HistoryController historyController =
+                        Get.find<HistoryController>();
+                    historyController.addToHistoryList(
+                      url: linkList[index],
+                      name: nameList[index],
+                      img: imageList[index],
+                    );
+                    movieController.clear();
+                    movieController.loadDetail(linkList[index]);
+                    Get.toNamed("/Movie");
+                  },
+                  child: CustomMovieItem(
+                    name: nameList[index],
+                    image: imageList[index],
+                  ),
+                ),
+                showDel
+                    ? Positioned(
+                        right: 10,
+                        top: 10,
+                        child: GestureDetector(
+                          onTap: () => Get.find<HistoryController>()
+                              .delHistoryMovie(url: linkList[index]),
+                          child: Container(
+                            padding: PAD_ALL_05,
+                            color: Colors.yellowAccent,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.redAccent,
+                                  size: 16,
+                                ),
+                                SIZED_BOX_W05,
+                                Text(
+                                  "XOÁ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .copyWith(
+                                        color: Colors.redAccent,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
             );
           },
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

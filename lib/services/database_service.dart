@@ -191,4 +191,20 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  Future<String> delHistoryMovie(
+      {@required String uid, @required String url}) async {
+    url = url.replaceAll("/", ">");
+    try {
+      await _database
+          .collection("accounts")
+          .doc(uid)
+          .collection("historyList")
+          .doc(url)
+          .delete();
+      return "Success";
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

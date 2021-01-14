@@ -55,6 +55,7 @@ Widget _buildSearchList({@required BuildContext context}) {
             itemCount: controller.nameList.length,
             name: "",
             scrollController: controller.scrollController,
+            showDel: false,
           ),
         );
       } else {

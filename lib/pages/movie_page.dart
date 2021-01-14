@@ -50,6 +50,8 @@ class MoviePage extends StatelessWidget {
                         child: CustomChapterGridView(
                           chapterLinkList: _movieController.chapterLinkList,
                           chapterNameList: _movieController.chapterNameList,
+                          chapterLinkListHistory:
+                              _movieController.chapterLinkListHistory,
                         ),
                       ),
                     ),

@@ -38,6 +38,13 @@ class HistoryController extends GetxController {
     );
   }
 
+  void delHistoryMovie({@required String url}) async {
+    await database.delHistoryMovie(
+      uid: Get.find<AccountController>().account.uid,
+      url: url,
+    );
+  }
+
   @override
   void onReady() async {
     super.onReady();
