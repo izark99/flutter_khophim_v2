@@ -82,7 +82,7 @@ Widget _buildRecommend({
     height: MediaQuery.of(context).size.width / 2,
     child: Obx(
       () {
-        if (controller.imageDList.length > 1) {
+        if (controller.imageDList.length > 5) {
           return CustomSwiper(
             imageList: controller.imageList,
             nameList: controller.nameList,

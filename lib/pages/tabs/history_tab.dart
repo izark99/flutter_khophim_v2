@@ -13,7 +13,7 @@ class HistoryTab extends StatelessWidget {
               imageList: controller.imageList,
               linkList: controller.linkList,
               nameList: controller.nameList,
-              itemCount: controller.nameList.length,
+              itemCount: controller.imageList.length,
               name: "",
               scrollController: controller.scrollController,
               showDel: true,
