@@ -70,6 +70,7 @@ class MovieController extends GetxController {
         this.index.value = chapterLinkList.length - 1;
         urlChangeChapter.value = chapterLinkList[this.index.value];
         flickManager = FlickManager(
+          autoPlay: false,
           videoPlayerController: CachedVideoPlayerController.network(
               "https://asia00.fbcdn.space/rawhls/${codeMovie.value}/${codeChapterList[this.index.value]}-b2.m3u8"),
         );
