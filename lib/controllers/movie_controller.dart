@@ -2,6 +2,7 @@ import 'package:cached_flick_video_player/flick_video_player.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
+import 'package:khophim/services/admob_service.dart';
 import 'package:khophim/services/database_service.dart';
 import 'package:web_scraper/web_scraper.dart';
 
@@ -36,6 +37,8 @@ class MovieController extends GetxController {
   }
 
   void loadDetail(String url) async {
+    AdMobService().dispose();
+    AdMobService().showIntertitialAd();
     urlMovie.value = url;
     String urlTemp = url.replaceAll('https://dongphym.net', "").trim();
     codeMovie.value = url.split("_")[1].split(".html")[0];
@@ -80,7 +83,8 @@ class MovieController extends GetxController {
 
   void changeChapter(int index) async {
     this.index.value = index;
-
+    AdMobService().dispose();
+    AdMobService().showIntertitialAd();
     flickManager.handleChangeVideo(
       CachedVideoPlayerController.network(
           "https://asia00.fbcdn.space/rawhls/${codeMovie.value}/${codeChapterList[this.index.value]}-b2.m3u8"),
@@ -108,6 +112,6 @@ class MovieController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    flickManager.dispose();
+    flickManager?.dispose();
   }
 }

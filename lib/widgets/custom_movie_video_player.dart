@@ -18,7 +18,7 @@ class _CustomMovieVideoPlayerState extends State<CustomMovieVideoPlayer> {
   @override
   void dispose() {
     super.dispose();
-    widget.flickManager.dispose();
+    widget.flickManager?.dispose();
   }
 
   @override
