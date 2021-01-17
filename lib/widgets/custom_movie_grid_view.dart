@@ -74,28 +74,42 @@ class CustomMovieGridView extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () => Get.find<HistoryController>()
                               .delHistoryMovie(url: linkList[index]),
-                          child: Container(
-                            padding: PAD_ALL_05,
-                            color: Colors.yellowAccent,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.delete,
-                                  color: Colors.redAccent,
-                                  size: 16,
-                                ),
-                                SIZED_BOX_W05,
-                                Text(
-                                  "XOÁ",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      .copyWith(
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.bold,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(BORDER_RADIUS),
+                            child: Container(
+                              padding: PAD_ALL_01,
+                              color: Theme.of(context).accentColor,
+                              child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.circular(BORDER_RADIUS),
+                                child: Container(
+                                  padding: PAD_ALL_05,
+                                  color: Theme.of(context)
+                                      .canvasColor
+                                      .withOpacity(0.8),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.delete,
+                                        color: Theme.of(context).accentColor,
+                                        size: 16,
                                       ),
-                                )
-                              ],
+                                      SIZED_BOX_W05,
+                                      Text(
+                                        "XOÁ",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2
+                                            .copyWith(
+                                              color:
+                                                  Theme.of(context).accentColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),

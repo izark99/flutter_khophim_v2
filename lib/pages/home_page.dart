@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:khophim/controllers/home_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/pages/tabs/history_tab.dart';
@@ -52,23 +51,39 @@ Widget _buildBottomNavigationBar({@required BuildContext context}) {
   final HomeController _homeController = Get.find<HomeController>();
   return Obx(
     () => CustomBottomNavigationBar(
-      tabs: [
-        GButton(
-          text: STR_HOME,
-          icon: Icons.video_label,
+      currentIndex: _homeController.tabIndexHomePage,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.video_label),
+          label: STR_HOME,
         ),
-        GButton(
-          text: STR_HISTORY,
-          icon: Icons.history,
+        BottomNavigationBarItem(
+          icon: Icon(Icons.history),
+          label: STR_HISTORY,
         ),
-        GButton(
-          text: STR_SEARCH,
-          icon: Icons.search,
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: STR_SEARCH,
         ),
       ],
-      selectedIndex: _homeController.tabIndexHomePage,
-      onTabChange: (newIndex) =>
-          _homeController.changeTabIndexHomePage(newIndex),
+      onTap: (newIndex) => _homeController.changeTabIndexHomePage(newIndex),
+      // tabs: [
+      //   GButton(
+      //     text: STR_HOME,
+      //     icon: Icons.video_label,
+      //   ),
+      //   GButton(
+      //     text: STR_HISTORY,
+      //     icon: Icons.history,
+      //   ),
+      //   GButton(
+      //     text: STR_SEARCH,
+      //     icon: Icons.search,
+      //   ),
+      // ],
+      // selectedIndex: _homeController.tabIndexHomePage,
+      // onTabChange: (newIndex) =>
+      //     _homeController.changeTabIndexHomePage(newIndex),
     ),
   );
 }
