@@ -163,6 +163,16 @@ class HomeController extends GetxController {
                 : Container(),
           ),
           SIZED_BOX_H10,
+          Obx(
+            () => Get.find<AccountController>().account.createAt != null
+                ? Text(
+                    "Loại tài khoản: " +
+                        Get.find<AccountController>().account.type,
+                    style: Get.context.theme.textTheme.bodyText1,
+                  )
+                : Container(),
+          ),
+          SIZED_BOX_H10,
           Container(
             width: Get.context.size.width,
             child: TextButton.icon(
