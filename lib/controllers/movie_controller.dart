@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/services/admob_service.dart';
 import 'package:khophim/services/database_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:web_scraper/web_scraper.dart';
 
 import 'auth_controller.dart';
@@ -34,6 +35,12 @@ class MovieController extends GetxController {
     urlChangeChapter.value = "";
     chapterLinkListHistory.clear();
     urlMovie.value = "";
+  }
+
+  void rpErrorLink() async {
+    String url =
+        "https://docs.google.com/forms/d/e/1FAIpQLScdaXD7IkK2Io8CgqpMv5-ky7zerccJ7PnKtqg_Ug4KszKCKg/viewform?entry.1955191540=$movieName - ${chapterNameList[index.value]}&entry.889265967=${chapterLinkList[index.value]}";
+    await launch(url);
   }
 
   void loadDetail(String url) async {

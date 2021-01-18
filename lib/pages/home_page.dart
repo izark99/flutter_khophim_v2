@@ -67,23 +67,6 @@ Widget _buildBottomNavigationBar({@required BuildContext context}) {
         ),
       ],
       onTap: (newIndex) => _homeController.changeTabIndexHomePage(newIndex),
-      // tabs: [
-      //   GButton(
-      //     text: STR_HOME,
-      //     icon: Icons.video_label,
-      //   ),
-      //   GButton(
-      //     text: STR_HISTORY,
-      //     icon: Icons.history,
-      //   ),
-      //   GButton(
-      //     text: STR_SEARCH,
-      //     icon: Icons.search,
-      //   ),
-      // ],
-      // selectedIndex: _homeController.tabIndexHomePage,
-      // onTabChange: (newIndex) =>
-      //     _homeController.changeTabIndexHomePage(newIndex),
     ),
   );
 }

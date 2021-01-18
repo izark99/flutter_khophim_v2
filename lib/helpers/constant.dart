@@ -10,6 +10,7 @@ const SIZED_BOX_H05 = SizedBox(height: 5);
 const SIZED_BOX_H10 = SizedBox(height: 10);
 const SIZED_BOX_H15 = SizedBox(height: 15);
 const SIZED_BOX_H20 = SizedBox(height: 20);
+const SIZED_BOX_H50 = SizedBox(height: 50);
 
 const ICON_SIZE_XL = 80.0;
 const ICON_SIZE_L = 40.0;

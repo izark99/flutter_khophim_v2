@@ -8,7 +8,6 @@ class AdMobService {
 
   String getInterstitialAdId() {
     return "ca-app-pub-9658728883249380/1511931606";
-    // return "ca-app-pub-3940256099942544/1033173712"; //test key
   }
 
   InterstitialAd getInterstitialAd() {

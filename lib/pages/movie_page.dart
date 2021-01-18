@@ -41,7 +41,21 @@ class MoviePage extends StatelessWidget {
                           ),
                     Visibility(
                       visible: orientation == Orientation.portrait,
-                      child: SIZED_BOX_H10,
+                      child: TextButton.icon(
+                        onPressed: () => _movieController.rpErrorLink(),
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.redAccent,
+                        ),
+                        icon: Icon(Icons.link_off_rounded, size: 20),
+                        label: Text(
+                          "BÁO LINK PHIM BỊ LỖI",
+                          style: Get.theme.textTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                     Visibility(
                       visible: _movieController.chapterNameList.length > 0 &&
