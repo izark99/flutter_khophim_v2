@@ -56,6 +56,7 @@ Widget _buildSearchList({@required BuildContext context}) {
             name: "",
             scrollController: controller.scrollController,
             showDel: false,
+            ok: true,
           ),
         );
       } else {

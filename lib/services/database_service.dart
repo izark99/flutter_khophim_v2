@@ -1,10 +1,40 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:khophim/models/account_model.dart';
 import 'package:khophim/models/movie_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:khophim/models/temp_model.dart';
+
+const String apiKey = "4d4e4032d83cc5687487d5da7fd41907";
+
+class Client {
+  String baseUrl = "https://api.themoviedb.org/3";
+  Future<List<Results>> getTrending() async {
+    String url = "$baseUrl/trending/all/day?api_key=$apiKey";
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      MovieList temp = MovieList.fromJson(json.decode(response.body));
+      List<Results> data = temp.results;
+      return data;
+    } else {
+      return [];
+    }
+  }
+}
 
 class DatabaseService {
   final FirebaseFirestore _database = FirebaseFirestore.instance;
+
+  Stream<bool> streamStatus() {
+    return _database
+        .collection("status")
+        .doc("statusApp")
+        .snapshots()
+        .map((event) => event.data()["ok"]);
+  }
+
   Future<String> createAccount({
     @required String uid,
     @required String email,
