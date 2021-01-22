@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/models/moviedb_model.dart';
+import 'package:khophim/services/admob_service.dart';
 import 'package:khophim/services/res_service.dart';
 import 'package:khophim/widgets/custom_button.dart';
 import 'package:khophim/widgets/custom_text_form_field.dart';
@@ -310,6 +311,11 @@ class HomeController extends GetxController {
 
   var results = <Results>[].obs;
   void getData(int page) async {
+    if (Get.find<AccountController>().account.type != "VIP") {
+      print("Called");
+      AdMobService().dispose();
+      AdMobService().showIntertitialAd();
+    }
     var temp = await res.getData(page);
     temp.forEach((element) {
       results.add(element);
