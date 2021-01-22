@@ -13,7 +13,7 @@ class DatabaseService {
       await _database.collection("accounts").doc(uid).set({
         "email": email,
         "createAt": Timestamp.fromDate(DateTime.now()),
-        "type": "User",
+        "type": "THÀNH VIÊN",
       });
       return "Success";
     } catch (e) {
