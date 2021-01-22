@@ -2,6 +2,7 @@
     package="com.izark.khophim">
    <application
         android:label="Kho Phim"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

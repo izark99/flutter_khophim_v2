@@ -1,17 +1,24 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/helpers/constant.dart';
+import 'package:khophim/models/moviedb_model.dart';
+import 'package:khophim/services/res_service.dart';
 import 'package:khophim/widgets/custom_button.dart';
 import 'package:khophim/widgets/custom_text_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:date_time_format/date_time_format.dart';
+import 'package:http/http.dart' as http;
 
 import 'auth_controller.dart';
 
 class HomeController extends GetxController {
+  final ResService res = ResService();
   RxInt _tabIndexHomePage = 0.obs;
+  RxString code = "US".obs;
   RxBool show = true.obs;
   RxBool hideCurrentPassword = true.obs;
   RxBool hideNewPassword = true.obs;
@@ -299,5 +306,48 @@ class HomeController extends GetxController {
         ),
       ),
     );
+  }
+
+  var results = <Results>[].obs;
+  void getData(int page) async {
+    var temp = await res.getData(page);
+    temp.forEach((element) {
+      results.add(element);
+    });
+  }
+
+  ScrollController scrollController = ScrollController();
+  int page = 2;
+  void scrollListener() {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      getData(page);
+      page++;
+    }
+  }
+
+  getLength(int length) {
+    int newLength;
+    for (int i = 0; i < length; i++) {
+      if (i % CROSS_GRIDVIEW_MOVIE == 0) {
+        newLength = i;
+      }
+    }
+    return newLength;
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+    var res = await http.get('http://ip-api.com/json');
+    code.value = json.decode(res.body)['countryCode'].toString();
+    scrollController.addListener(scrollListener);
+    getData(1);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 }
