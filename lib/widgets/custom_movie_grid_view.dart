@@ -14,7 +14,6 @@ class CustomMovieGridView extends StatelessWidget {
   final List<String> imageList;
   final List<String> linkList;
   final bool showDel;
-  final bool ok;
 
   const CustomMovieGridView({
     Key key,
@@ -25,7 +24,6 @@ class CustomMovieGridView extends StatelessWidget {
     @required this.imageList,
     @required this.linkList,
     @required this.showDel,
-    @required this.ok,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -50,22 +48,20 @@ class CustomMovieGridView extends StatelessWidget {
             return Stack(
               children: [
                 GestureDetector(
-                  onTap: ok
-                      ? () {
-                          final MovieController movieController =
-                              Get.find<MovieController>();
-                          final HistoryController historyController =
-                              Get.find<HistoryController>();
-                          historyController.addToHistoryList(
-                            url: linkList[index],
-                            name: nameList[index],
-                            img: imageList[index],
-                          );
-                          movieController.clear();
-                          movieController.loadDetail(linkList[index]);
-                          Get.toNamed("/Movie");
-                        }
-                      : () {},
+                  onTap: () {
+                    final MovieController movieController =
+                        Get.find<MovieController>();
+                    final HistoryController historyController =
+                        Get.find<HistoryController>();
+                    historyController.addToHistoryList(
+                      url: linkList[index],
+                      name: nameList[index],
+                      img: imageList[index],
+                    );
+                    movieController.clear();
+                    movieController.loadDetail(linkList[index]);
+                    Get.toNamed("/Movie");
+                  },
                   child: CustomMovieItem(
                     name: nameList[index],
                     image: imageList[index],

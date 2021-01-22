@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/helpers/constant.dart';
-import 'package:khophim/services/database_service.dart';
 import 'package:khophim/widgets/custom_button.dart';
 import 'package:khophim/widgets/custom_text_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,9 +11,6 @@ import 'package:date_time_format/date_time_format.dart';
 import 'auth_controller.dart';
 
 class HomeController extends GetxController {
-  final DatabaseService database = DatabaseService();
-  RxBool ok = false.obs;
-
   RxInt _tabIndexHomePage = 0.obs;
   RxBool show = true.obs;
   RxBool hideCurrentPassword = true.obs;
@@ -303,11 +299,5 @@ class HomeController extends GetxController {
         ),
       ),
     );
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    ok.bindStream(database.streamStatus());
   }
 }
