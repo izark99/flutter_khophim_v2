@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => controller.code.value != "VN"
+      () => controller.code.value == "VN"
           ? Scaffold(
               appBar: _buildAppBar(context: context),
               body: _buildBody(context: context),
