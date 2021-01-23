@@ -4,16 +4,19 @@ import 'package:khophim/helpers/constant.dart';
 class CustomTitle extends StatelessWidget {
   final String title;
   final IconData icon;
+  final bool center;
   const CustomTitle({
     Key key,
     @required this.title,
     @required this.icon,
+    @required this.center,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment:
+          center ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
         Icon(
           icon,

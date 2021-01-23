@@ -341,6 +341,9 @@ class HomeController extends GetxController {
     super.onReady();
     var res = await http.get('http://ip-api.com/json');
     code.value = json.decode(res.body)['countryCode'].toString();
+    if (code.value != "VN") {
+      show.value = false;
+    }
     scrollController.addListener(scrollListener);
     getData(1);
   }
