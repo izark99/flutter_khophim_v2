@@ -43,7 +43,6 @@ class MovieController extends GetxController {
 
   void loadDetail(String url) async {
     if (Get.find<AccountController>().account.type != "VIP") {
-      print("Called");
       AdMobService().dispose();
       AdMobService().showIntertitialAd();
     }
@@ -93,7 +92,6 @@ class MovieController extends GetxController {
   void changeChapter(int index) async {
     this.index.value = index;
     if (Get.find<AccountController>().account.type != "VIP") {
-      print("Called");
       AdMobService().dispose();
       AdMobService().showIntertitialAd();
     }

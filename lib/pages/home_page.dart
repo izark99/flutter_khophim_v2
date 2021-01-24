@@ -6,6 +6,7 @@ import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/pages/tabs/history_tab.dart';
 import 'package:khophim/pages/tabs/index_tab.dart';
 import 'package:khophim/pages/tabs/search_tab.dart';
+import 'package:khophim/services/admob_service.dart';
 import 'package:khophim/widgets/custom_bottom_navigation_bar.dart';
 import 'package:khophim/widgets/custom_icon.dart';
 import 'package:khophim/widgets/custom_loading.dart';
@@ -129,6 +130,8 @@ Widget _buildBodyDB({@required BuildContext context}) {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  AdMobService().dispose();
+                  AdMobService().showIntertitialAd();
                   Get.to(
                     DetailPage(
                       movieID: controller.results[index].id,
