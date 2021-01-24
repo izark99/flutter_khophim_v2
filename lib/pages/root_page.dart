@@ -10,7 +10,7 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => _authController.user?.uid != null ? HomePage() : AuthPage(),
+      () => _authController.user.value?.uid != null ? HomePage() : AuthPage(),
     );
   }
 }

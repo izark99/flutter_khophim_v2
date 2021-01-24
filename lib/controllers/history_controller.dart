@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:khophim/services/database_service.dart';
 
 import 'account_controller.dart';
-import 'auth_controller.dart';
 
 class HistoryController extends GetxController {
   final DatabaseService database = DatabaseService();
@@ -53,28 +52,28 @@ class HistoryController extends GetxController {
       imageList,
       (value) async {
         maxLength.value = await database.getLengthHistoryList(
-            uid: Get.find<AuthController>().user.uid);
+            uid: Get.find<AccountController>().account.uid);
       },
     );
     ever(
       limit,
       (int value) {
-        if (Get.find<AuthController>().user.uid != null) {
+        if (Get.find<AccountController>().account.uid != null) {
           nameList.bindStream(
             database.streamHistoryNameList(
-              uid: Get.find<AuthController>().user.uid,
+              uid: Get.find<AccountController>().account.uid,
               limit: value,
             ),
           );
           linkList.bindStream(
             database.streamHistoryLinkList(
-              uid: Get.find<AuthController>().user.uid,
+              uid: Get.find<AccountController>().account.uid,
               limit: value,
             ),
           );
           imageList.bindStream(
             database.streamHistoryImageList(
-              uid: Get.find<AuthController>().user.uid,
+              uid: Get.find<AccountController>().account.uid,
               limit: value,
             ),
           );

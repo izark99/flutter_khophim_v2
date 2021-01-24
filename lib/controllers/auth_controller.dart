@@ -15,8 +15,7 @@ class AuthController extends GetxController {
   final DatabaseService database = DatabaseService();
   final RxBool isSignInUI = true.obs;
   final RxBool obscureText = true.obs;
-  Rx<User> _user = Rx<User>();
-  User get user => _user.value;
+  Rx<User> user = Rx<User>();
   final TextEditingController emailText = TextEditingController();
   final TextEditingController passwordText = TextEditingController();
   final TextEditingController emailTextForgot = TextEditingController();
@@ -138,7 +137,7 @@ class AuthController extends GetxController {
       }
     } else {
       await database.createAccount(
-        uid: user.uid,
+        uid: user.value.uid,
         email: emailText.text,
       );
       emailText.clear();
@@ -366,9 +365,9 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    _user.bindStream(auth?.user);
+    user.bindStream(auth?.user);
     ever(
-      _user,
+      user,
       (User value) async {
         if (value != null) {
           Get.find<AccountController>().account = await database.getAccountInfo(

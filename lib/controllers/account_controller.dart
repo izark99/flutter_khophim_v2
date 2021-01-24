@@ -21,7 +21,7 @@ class AccountController extends GetxController {
     ever(
       _account,
       (value) {
-        if (_account.value.uid != null) {
+        if (_account.value?.uid != null) {
           Get.find<HistoryController>().nameList.bindStream(
                 database.streamHistoryNameList(
                   uid: _account.value.uid,

@@ -41,6 +41,10 @@ class MoviePage extends StatelessWidget {
                           ),
                     Visibility(
                       visible: orientation == Orientation.portrait,
+                      child: SIZED_BOX_H10,
+                    ),
+                    Visibility(
+                      visible: orientation == Orientation.portrait,
                       child: TextButton.icon(
                         onPressed: () => _movieController.rpErrorLink(),
                         style: TextButton.styleFrom(

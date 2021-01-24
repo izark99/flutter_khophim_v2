@@ -7,8 +7,6 @@ import 'package:khophim/services/database_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web_scraper/web_scraper.dart';
 
-import 'auth_controller.dart';
-
 class MovieController extends GetxController {
   final DatabaseService database = DatabaseService();
   final webScraper = WebScraper('https://dongphym.net');
@@ -117,7 +115,9 @@ class MovieController extends GetxController {
       (value) {
         chapterLinkListHistory.bindStream(
           database.streamChapter(
-              uid: Get.find<AuthController>().user.uid, url: urlMovie.value),
+            uid: Get.find<AccountController>().account.uid,
+            url: urlMovie.value,
+          ),
         );
       },
     );
