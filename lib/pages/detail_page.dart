@@ -79,6 +79,8 @@ class DetailPage extends StatelessWidget {
                                     .canvasColor
                                     .withOpacity(0.8),
                                 child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
                                       snapshot.data.title.toUpperCase(),
