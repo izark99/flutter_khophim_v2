@@ -81,23 +81,33 @@ class DetailPage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      snapshot.data.title,
+                                      snapshot.data.title.toUpperCase(),
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                       textAlign: TextAlign.center,
                                     ),
                                     SIZED_BOX_H05,
                                     Text(
-                                      snapshot.data.voteAverage.toString() +
-                                          "/10",
+                                      "[" +
+                                          snapshot.data.voteAverage.toString() +
+                                          "/10]",
                                       style:
                                           Theme.of(context).textTheme.headline5,
                                       textAlign: TextAlign.center,
                                     ),
-                                    SIZED_BOX_H15,
+                                    SIZED_BOX_H10,
+                                    Text(
+                                      "ĐÁNH GIÁ PHIM",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5
+                                          .copyWith(wordSpacing: 1.5),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SIZED_BOX_H05,
                                     Text(
                                       snapshot.data.overview.isEmpty
-                                          ? "CHƯA CÓ ĐÁNH GIÁ"
+                                          ? "HIỆN TẠI CHƯA CÓ ĐÁNH GIÁ VỀ PHIM NÀY"
                                           : snapshot.data.overview,
                                       style: Theme.of(context)
                                           .textTheme
@@ -116,7 +126,7 @@ class DetailPage extends StatelessWidget {
                                     "https://www.google.com/search?q=${snapshot.data.title.toString()}";
                                 await launch(url);
                               },
-                              buttonName: "TÌM TRÊN GOOGLE",
+                              buttonName: "TÌM KIẾM TRÊN GOOGLE",
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
