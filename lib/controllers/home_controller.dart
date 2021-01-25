@@ -62,68 +62,31 @@ class HomeController extends GetxController {
               ],
             ),
             SIZED_BOX_H10,
-            Column(
-              children: [
-                SIZED_BOX_H10,
-                Text(
-                  "Ứng dụng được phát triển bởi Izark. Nếu bạn thích nó, hãy Donate ♥",
-                  textAlign: TextAlign.center,
-                  style: Get.theme.textTheme.bodyText1
-                      .copyWith(color: Get.theme.accentColor),
-                ),
-                Container(
-                  width: Get.context.size.width,
-                  child: TextButton.icon(
-                    onPressed: () async {
-                      String url = "https://nhantien.momo.vn/khophim";
-                      await launch(url);
-                    },
-                    style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      backgroundColor: Colors.redAccent,
-                    ),
-                    icon: Icon(Icons.account_balance_outlined),
-                    label: Text(
-                      "Donate qua MOMO",
-                      style: Get.theme.textTheme.bodyText1
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-                SIZED_BOX_H05,
-              ],
+            Text(
+              "Ứng dụng được phát triển bởi Izark. Nếu bạn thích nó, hãy Donate ♥",
+              textAlign: TextAlign.center,
+              style: Get.theme.textTheme.bodyText1
+                  .copyWith(color: Get.theme.accentColor),
             ),
-            SIZED_BOX_H05,
-            Column(
-              children: [
-                SIZED_BOX_H10,
-                Text(
-                  "Theo dõi kênh Telegram để nhận thông báo về phiên bản mới nhất",
-                  textAlign: TextAlign.center,
+            SIZED_BOX_H10,
+            Container(
+              width: Get.context.size.width,
+              child: TextButton.icon(
+                onPressed: () async {
+                  String url = "https://nhantien.momo.vn/khophim";
+                  await launch(url);
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.redAccent,
+                ),
+                icon: Icon(Icons.account_balance_outlined),
+                label: Text(
+                  "Donate qua MOMO",
                   style: Get.theme.textTheme.bodyText1
-                      .copyWith(color: Get.theme.accentColor),
+                      .copyWith(color: Colors.white),
                 ),
-                Container(
-                  width: Get.context.size.width,
-                  child: TextButton.icon(
-                    onPressed: () async {
-                      String url = "https://t.me/kho_phim";
-                      await launch(url);
-                    },
-                    style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      backgroundColor: Colors.lightBlue,
-                    ),
-                    icon: Icon(Icons.group_outlined),
-                    label: Text(
-                      "Theo dõi kênh Telegram",
-                      style: Get.theme.textTheme.bodyText1
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-                SIZED_BOX_H05,
-              ],
+              ),
             ),
           ],
         ),
