@@ -24,6 +24,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => SearchController());
     Get.lazyPut(() => MovieController());
     Get.lazyPut(() => AccountController());
-    Get.lazyPut(() => HistoryController(), fenix: true);
+    Get.lazyPut(() => HistoryController());
   }
 }

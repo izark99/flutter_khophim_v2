@@ -40,6 +40,8 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
+      defaultTransition: Transition.downToUp,
+      smartManagement: SmartManagement.onlyBuilder,
       getPages: [
         GetPage(
           name: "/Splash",
