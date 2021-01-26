@@ -6,7 +6,6 @@ import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/pages/tabs/history_tab.dart';
 import 'package:khophim/pages/tabs/index_tab.dart';
 import 'package:khophim/pages/tabs/search_tab.dart';
-import 'package:khophim/services/admob_service.dart';
 import 'package:khophim/widgets/custom_bottom_navigation_bar.dart';
 import 'package:khophim/widgets/custom_icon.dart';
 import 'package:khophim/widgets/custom_loading.dart';
@@ -19,7 +18,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => controller.code.value == "VN"
+      () => controller.code.value == "VN" && controller.status.value
           ? Scaffold(
               appBar: _buildAppBar(context: context),
               body: _buildBody(context: context),
@@ -124,96 +123,110 @@ Widget _buildBodyDB({@required BuildContext context}) {
   return controller.results.length > 0
       ? Padding(
           padding: PAD_SYM_H05,
-          child: GridView.builder(
-            controller: controller.scrollController,
-            itemCount: controller.getLength(controller.results.length),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  AdMobService().dispose();
-                  AdMobService().showIntertitialAd();
-                  Get.to(
-                    DetailPage(
-                      movieID: controller.results[index].id,
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                    color: Theme.of(context).accentColor,
-                  ),
-                  margin: PAD_ALL_05,
-                  padding: PAD_ALL_01,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(BORDER_RADIUS),
+          child: Column(
+            children: [
+              Text(
+                "Dữ liệu đến từ trang https://www.themoviedb.org",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              SIZED_BOX_H05,
+              Expanded(
+                child: GridView.builder(
+                  controller: controller.scrollController,
+                  itemCount: controller.getLength(controller.results.length),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(
+                          DetailPage(
+                            movieID: controller.results[index].id,
                           ),
-                          child: Container(
-                            padding: PAD_ALL_01,
-                            color: Theme.of(context).canvasColor,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(BORDER_RADIUS),
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: "https://image.tmdb.org/t/p/w500/" +
-                                    controller.results[index].posterPath
-                                        .toString(),
-                                width: 130,
-                                fit: BoxFit.cover,
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) => Center(
-                                  child: CircularProgressIndicator(
-                                      value: downloadProgress.progress),
-                                ),
-                                errorWidget: (context, url, error) => Center(
-                                  child: Icon(Icons.error, size: ICON_SIZE_M),
-                                ),
-                              ),
-                            ),
-                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(BORDER_RADIUS),
+                          color: Theme.of(context).accentColor,
                         ),
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(BORDER_RADIUS),
-                        ),
-                        child: Container(
-                          padding: PAD_ALL_01,
-                          color: Theme.of(context).canvasColor,
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: PAD_ALL_05,
-                            height: 40,
-                            width: 130,
-                            child: Text(
-                              controller.results[index].title ?? "404",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                                  .copyWith(
-                                    color: Theme.of(context).accentColor,
+                        margin: PAD_ALL_05,
+                        padding: PAD_ALL_01,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(BORDER_RADIUS),
+                                ),
+                                child: Container(
+                                  padding: PAD_ALL_01,
+                                  color: Theme.of(context).canvasColor,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(BORDER_RADIUS),
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          "https://image.tmdb.org/t/p/w500/" +
+                                              controller
+                                                  .results[index].posterPath
+                                                  .toString(),
+                                      width: 130,
+                                      fit: BoxFit.cover,
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Center(
+                                        child: Icon(Icons.error,
+                                            size: ICON_SIZE_M),
+                                      ),
+                                    ),
                                   ),
-                              textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
-                          ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(BORDER_RADIUS),
+                              ),
+                              child: Container(
+                                padding: PAD_ALL_01,
+                                color: Theme.of(context).canvasColor,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: PAD_ALL_05,
+                                  height: 40,
+                                  width: 130,
+                                  child: Text(
+                                    controller.results[index].title ?? "404",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(
+                                          color: Theme.of(context).accentColor,
+                                        ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    );
+                  },
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    childAspectRatio: ASPECT_RATIO_GRIDVIEW_MOVIE,
+                    maxCrossAxisExtent: 130,
                   ),
                 ),
-              );
-            },
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              childAspectRatio: ASPECT_RATIO_GRIDVIEW_MOVIE,
-              maxCrossAxisExtent: 130,
-            ),
+              ),
+            ],
           ),
         )
       : CustomLoading();

@@ -207,4 +207,16 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  Future<bool> getStatus() async {
+    try {
+      return await _database
+          .collection("status")
+          .doc("status")
+          .get()
+          .then((value) => value.data()['OK']);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:khophim/controllers/account_controller.dart';
 import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/models/moviedb_model.dart';
+import 'package:khophim/services/database_service.dart';
 import 'package:khophim/services/res_service.dart';
 import 'package:khophim/widgets/custom_button.dart';
 import 'package:khophim/widgets/custom_text_form_field.dart';
@@ -17,8 +18,10 @@ import 'auth_controller.dart';
 
 class HomeController extends GetxController {
   final ResService res = ResService();
+  final DatabaseService database = DatabaseService();
   RxInt _tabIndexHomePage = 0.obs;
   RxString code = "US".obs;
+  RxBool status = false.obs;
   RxBool show = true.obs;
   RxBool hideCurrentPassword = true.obs;
   RxBool hideNewPassword = true.obs;
@@ -134,7 +137,7 @@ class HomeController extends GetxController {
           ),
           SIZED_BOX_H10,
           Obx(
-            () => Get.find<AccountController>().account.createAt != null
+            () => Get.find<AccountController>().account.type == "VIP"
                 ? Text(
                     "Loại tài khoản: " +
                         Get.find<AccountController>().account.type,
@@ -299,6 +302,10 @@ class HomeController extends GetxController {
     return newLength;
   }
 
+  Future<bool> getStatus() async {
+    return await database.getStatus();
+  }
+
   @override
   void onReady() async {
     super.onReady();
@@ -307,6 +314,7 @@ class HomeController extends GetxController {
     if (code.value != "VN") {
       show.value = false;
     }
+    status.value = await getStatus();
     scrollController.addListener(scrollListener);
     getData(1);
   }

@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:khophim/helpers/constant.dart';
 import 'package:khophim/models/detail_model.dart';
 import 'package:khophim/services/res_service.dart';
-import 'package:khophim/widgets/custom_button.dart';
 import 'package:khophim/widgets/custom_loading.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatelessWidget {
   final int movieID;
@@ -121,19 +119,11 @@ class DetailPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SIZED_BOX_H15,
-                            CustomButton(
-                              onPressed: () async {
-                                String url =
-                                    "https://www.google.com/search?q=${snapshot.data.title.toString()}";
-                                await launch(url);
-                              },
-                              buttonName: "TÌM KIẾM TRÊN GOOGLE",
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
+                            SIZED_BOX_H10,
+                            Text(
+                              "Dữ liệu đến từ trang https://www.themoviedb.org",
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
                           ],
                         ),
                       ),
